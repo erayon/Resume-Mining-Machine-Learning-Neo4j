@@ -14,7 +14,7 @@ def plan_text(path):
     '''
     proc = subprocess.Popen(['pdf2txt.py',path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     temp=proc.communicate()[0]
-    temp = temp.decode("utf-8") 
+    temp = temp.decode('ascii', errors='ignore')    
     cleanText = re.sub("\n", "", temp)
     cleanText =cleanText.lower()
     return cleanText
