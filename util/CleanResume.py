@@ -7,6 +7,7 @@ import numpy as np
 from tqdm import tqdm
 import pandas as pd
 from nltk.corpus import stopwords
+import nltk
 
 stop = stopwords.words("english")
 
