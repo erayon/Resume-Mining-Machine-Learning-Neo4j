@@ -6,18 +6,22 @@ import re
 import numpy as np
 from tqdm import tqdm
 import pandas as pd
+from nltk.corpus import stopwords
+
+stop = stopwords.words("english")
 
 def plan_text(path):
-    '''
-    Return in lower case 
-    
-    '''
-    proc = subprocess.Popen(['pdf2txt.py',path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    temp=proc.communicate()[0]
-    temp = temp.decode('ascii', errors='ignore')    
-    cleanText = re.sub("\n", "", temp)
-    cleanText =cleanText.lower()
-    return cleanText
+	'''
+	Return in clean plane text without stop words in it  /// 
+	'''
+	proc = subprocess.Popen(['pdf2txt.py',path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	temp=proc.communicate()[0]
+	temp = temp.decode('ascii', errors='ignore') 
+	cleanText = re.sub("\n", "", temp)
+	document = " ".join([i for i in cleanText.split() if i not in stop])
+	sentences = nltk.sent_tokenize(document)
+	cleanText=" ".join(sentences)
+	return cleanText
 
 
 
